@@ -1,0 +1,152 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{813E4AF3-5822-4452-9AB0-62C4F3DDDB92}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Maze_game_NEA</RootNamespace>
+    <AssemblyName>Maze game NEA</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Information page.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Information page.Designer.cs">
+      <DependentUpon>Information page.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MainMenu.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MainMenu.Designer.cs">
+      <DependentUpon>MainMenu.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Print menu.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Print menu.Designer.cs">
+      <DependentUpon>Print menu.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Registration page.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Registration page.Designer.cs">
+      <DependentUpon>Registration page.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Student data.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Student data.Designer.cs">
+      <DependentUpon>Student data.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Student Maze.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Student Maze.Designer.cs">
+      <DependentUpon>Student Maze.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Student menu.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Student menu.Designer.cs">
+      <DependentUpon>Student menu.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Teacher Menu.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Teacher Menu.Designer.cs">
+      <DependentUpon>Teacher Menu.cs</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="Information page.resx">
+      <DependentUpon>Information page.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MainMenu.resx">
+      <DependentUpon>MainMenu.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Print menu.resx">
+      <DependentUpon>Print menu.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <EmbeddedResource Include="Registration page.resx">
+      <DependentUpon>Registration page.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Student data.resx">
+      <DependentUpon>Student data.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Student Maze.resx">
+      <DependentUpon>Student Maze.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Student menu.resx">
+      <DependentUpon>Student menu.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Teacher Menu.resx">
+      <DependentUpon>Teacher Menu.cs</DependentUpon>
+    </EmbeddedResource>
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Home icon.png" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

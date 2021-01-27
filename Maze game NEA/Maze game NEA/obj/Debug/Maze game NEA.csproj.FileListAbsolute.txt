@@ -1,0 +1,15 @@
+c:\users\main\documents\visual studio 2012\Projects\Maze game NEA\Maze game NEA\bin\Debug\Maze game NEA.exe
+c:\users\main\documents\visual studio 2012\Projects\Maze game NEA\Maze game NEA\bin\Debug\Maze game NEA.pdb
+c:\users\main\documents\visual studio 2012\Projects\Maze game NEA\Maze game NEA\obj\Debug\Maze game NEA.csprojResolveAssemblyReference.cache
+c:\users\main\documents\visual studio 2012\Projects\Maze game NEA\Maze game NEA\obj\Debug\Maze_game_NEA.MainMenu.resources
+c:\users\main\documents\visual studio 2012\Projects\Maze game NEA\Maze game NEA\obj\Debug\Maze_game_NEA.Properties.Resources.resources
+c:\users\main\documents\visual studio 2012\Projects\Maze game NEA\Maze game NEA\obj\Debug\Maze game NEA.csproj.GenerateResource.Cache
+c:\users\main\documents\visual studio 2012\Projects\Maze game NEA\Maze game NEA\obj\Debug\Maze game NEA.exe
+c:\users\main\documents\visual studio 2012\Projects\Maze game NEA\Maze game NEA\obj\Debug\Maze game NEA.pdb
+C:\Users\Main\Documents\Visual Studio 2012\Projects\Maze game NEA\Maze game NEA\obj\Debug\Maze_game_NEA.Information_page.resources
+C:\Users\Main\Documents\Visual Studio 2012\Projects\Maze game NEA\Maze game NEA\obj\Debug\Maze_game_NEA.Print_menu.resources
+C:\Users\Main\Documents\Visual Studio 2012\Projects\Maze game NEA\Maze game NEA\obj\Debug\Maze_game_NEA.Registration_page.resources
+C:\Users\Main\Documents\Visual Studio 2012\Projects\Maze game NEA\Maze game NEA\obj\Debug\Maze_game_NEA.Student_data.resources
+C:\Users\Main\Documents\Visual Studio 2012\Projects\Maze game NEA\Maze game NEA\obj\Debug\Maze_game_NEA.Teacher_Menu.resources
+C:\Users\Main\documents\visual studio 2012\Projects\Maze game NEA\Maze game NEA\obj\Debug\Maze_game_NEA.Student_menu.resources
+C:\Users\Main\Documents\Visual Studio 2012\Projects\Maze game NEA\Maze game NEA\obj\Debug\Maze_game_NEA.Student_Maze.resources

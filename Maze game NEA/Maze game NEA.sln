@@ -1,0 +1,20 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Maze game NEA", "Maze game NEA\Maze game NEA.csproj", "{813E4AF3-5822-4452-9AB0-62C4F3DDDB92}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{813E4AF3-5822-4452-9AB0-62C4F3DDDB92}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{813E4AF3-5822-4452-9AB0-62C4F3DDDB92}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{813E4AF3-5822-4452-9AB0-62C4F3DDDB92}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{813E4AF3-5822-4452-9AB0-62C4F3DDDB92}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
