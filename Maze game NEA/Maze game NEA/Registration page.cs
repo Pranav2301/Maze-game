@@ -22,7 +22,7 @@ namespace Maze_game_NEA
         public bool validUsername(string user)
         {
             //regular expression for a string that needs to contain at least one letter
-            var userRegex = new Regex(@"^[A-z]*$");
+            var userRegex = new Regex(@"^[A-z]+$");
             bool validUser = userRegex.IsMatch(user);
             if (validUser == false)
             {
