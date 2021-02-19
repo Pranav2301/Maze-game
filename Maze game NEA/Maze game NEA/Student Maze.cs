@@ -16,14 +16,11 @@ namespace Maze_game_NEA
         int columns;
         int[,] outputGrid; //2d array that represents the grid for the maze
         int cellSize; //represents the size of each cell in the grid
+        Maze maze;
 
         const int startPoint = 1;
         const int endPoint = 2;
         const int empty = 3;
-        const int removeTop = 4;
-        const int removeRight = 5;
-        const int removeBottom = 6;
-        const int removeLeft = 7;
 
         Student_menu studentMenu;
 
@@ -58,9 +55,9 @@ namespace Maze_game_NEA
                 get { return visited; }
                 set { visited = value; }
             }
-
             public override bool Equals(Object other)
             {
+                //if (!(other instanceof Cell)) return false;
                 if (other.GetType() != typeof(mazeCell))
                     return false;
                 mazeCell otherCell = (mazeCell)other;
@@ -118,6 +115,7 @@ namespace Maze_game_NEA
                 {
                     current.walls[3] = false;//remove left wall of current
                     random.walls[1] = false;//remove right wall of random
+                    //remove = "left";
                 }
                 else if (checkX == -1)
                 {
@@ -136,33 +134,6 @@ namespace Maze_game_NEA
                 }
             }
 
-            public void updateGrid()
-            {
-                for (int i = 0; i < mazeHeight; i++)
-                {
-                    for (int j = 0; j < mazeWidth; j++)
-                    {
-                        mazeCell cell = getMazeCell(i, j);
-                        if (cell.walls[0] == false)
-                        {
-                            mazeGrid[i, j] = removeTop;
-                        }
-                        else if (cell.walls[1] == false)
-                        {
-                            mazeGrid[i, j] = removeRight;
-                        }
-                        else if (cell.walls[2] == false)
-                        {
-                            mazeGrid[i, j] = removeBottom;
-                        }
-                        else if (cell.walls[3] == false)
-                        {
-                            mazeGrid[i, j] = removeLeft;
-                        }
-                    }
-                }
-            }
-
             public void mazeGen(mazeCell entry)
             {
                 mazeCell currentCell;
@@ -174,7 +145,7 @@ namespace Maze_game_NEA
                     ArrayList neighbourCells = new ArrayList();
                     currentCell = (mazeCell)visitedCells.Pop();
                     mazeCell[] possibleNeighbours = new mazeCell[]{
-                        getMazeCell(currentCell.X - 1, currentCell.Y),
+                        getMazeCell(currentCell.X - 1, currentCell.Y), 
                         getMazeCell(currentCell.X + 1, currentCell.Y),
                         getMazeCell(currentCell.X, currentCell.Y + 1),
                         getMazeCell(currentCell.X, currentCell.Y - 1)
@@ -199,8 +170,6 @@ namespace Maze_game_NEA
                         visitedCells.Push(randomCell);
                     }
                 }
-                updateGrid();
-
             }
         }
 
@@ -240,30 +209,43 @@ namespace Maze_game_NEA
                 }
                 outputGrid = new int[rows, columns];
                 drawCells();
-                Maze maze = new Maze(rows, columns);
-                for (int i = 0; i < rows; i++)
-                {
-                    for (int j = 0; j < columns; j++)
-                    {
-                        if (maze.mazeGrid[i, j] == removeTop)
-                        {
-                            outputGrid[i, j] = removeTop;
-                        }
-                        else if (maze.mazeGrid[i, j] == removeRight)
-                        {
-                            outputGrid[i, j] = removeRight;
-                        }
-                        else if (maze.mazeGrid[i, j] == removeBottom)
-                        {
-                            outputGrid[i, j] = removeBottom;
-                        }
-                        else if (maze.mazeGrid[i, j] == removeLeft)
-                        {
-                            outputGrid[i, j] = removeLeft;
-                        }
-                    }
-                }
+                maze = new Maze(rows, columns);
                 Invalidate();
+            }
+            catch (NullReferenceException)
+            {
+                MessageBox.Show("Select an option from the drop down menu");
+            } 
+        }
+
+        public void getDifficulty()
+        {
+            Random rand = new Random();
+            try
+            {
+                if (difficultyBox.SelectedItem.ToString() == "Easy")
+                {
+                    rows = rand.Next(10, 20);
+                    columns = rand.Next(10, 20);
+                }
+                else if (difficultyBox.SelectedItem.ToString() == "Medium")
+                {
+                    rows = rand.Next(40, 50);
+                    columns = rand.Next(40, 50);
+                }
+                else if (difficultyBox.SelectedItem.ToString() == "Hard")
+                {
+                    rows = rand.Next(60, 80);
+                    columns = rand.Next(60, 80);
+                }
+                if (rows > columns)
+                {
+                    cellSize = 500 / rows;
+                }
+                else
+                {
+                    cellSize = 500 / columns;
+                }
             }
             catch (NullReferenceException)
             {
@@ -294,10 +276,8 @@ namespace Maze_game_NEA
             Graphics graphics = e.Graphics;
             Brush brush;
             Rectangle rect;
-            Pen Pen = new Pen(Color.White, 2);
+            Pen Pen = new Pen(Color.Black, 2);
             brush = new SolidBrush(Color.Black);
-            rect = new Rectangle(12, 68, columns * cellSize + 1, rows * cellSize + 1);
-            graphics.FillRectangle(brush, rect);
             for (int i = 0; i < rows; i++)
                 for (int j = 0; j < columns; j++)
                 {
@@ -307,17 +287,27 @@ namespace Maze_game_NEA
                         brush = new SolidBrush(Color.Red);
                     else if (outputGrid[i, j] == endPoint)
                         brush = new SolidBrush(Color.Green);
-                    else if (outputGrid[i, j] == removeTop)
-                        graphics.DrawLine(Pen, 13 + j * cellSize, 69 + i * cellSize, 13 + (j + 1) * cellSize, 69 + i * cellSize);
-                    else if (outputGrid[i, j] == removeRight)
-                        graphics.DrawLine(Pen, 13 + (j + 1) * cellSize, 69 + i * cellSize, 13 + (j + 1) * cellSize, 69 + (i + 1) * cellSize);
-                    else if (outputGrid[i, j] == removeBottom)
-                        graphics.DrawLine(Pen, 13 + j * cellSize, 69 + (i + 1) * cellSize, 13 + (j + 1) * cellSize, 69 + (i + 1) * cellSize);
-                    else if (outputGrid[i, j] == removeLeft)
-                        graphics.DrawLine(Pen, 13 + j * cellSize, 69 + i * cellSize, 13 + j * cellSize, 69 + (i + 1) * cellSize);
                     rect = new Rectangle(13 + j * cellSize, 69 + i * cellSize, cellSize - 1, cellSize - 1);
                     graphics.FillRectangle(brush, rect);
                     brush.Dispose();
+                    //draw wall
+                    if (maze.getMazeCell(i, j).walls[0])
+                    {
+                        graphics.DrawLine(Pen, 13 + j * cellSize, 69 + i * cellSize, 13 + (j + 1) * cellSize, 69 + i * cellSize);
+                    }
+                    else if (maze.getMazeCell(i, j).walls[1])
+                    {
+                        graphics.DrawLine(Pen, 13 + (j + 1) * cellSize, 69 + i * cellSize, 13 + (j + 1) * cellSize, 69 + (i + 1) * cellSize);
+                    }
+                    else if (maze.getMazeCell(i, j).walls[2])
+                    {
+                        graphics.DrawLine(Pen, 13 + j * cellSize, 69 + (i + 1) * cellSize, 13 + (j + 1) * cellSize, 69 + (i + 1) * cellSize);
+                    }
+                    else if (maze.getMazeCell(i, j).walls[3])
+                    {
+                        graphics.DrawLine(Pen, 13 + j * cellSize, 69 + i * cellSize, 13 + j * cellSize, 69 + (i + 1) * cellSize);
+                    }
+
                 }
         }
     }
