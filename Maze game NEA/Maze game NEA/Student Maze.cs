@@ -58,6 +58,14 @@ namespace Maze_game_NEA
                 get { return visited; }
                 set { visited = value; }
             }
+
+            public override bool Equals(Object other)
+            {
+                if (other.GetType() != typeof(mazeCell))
+                    return false;
+                mazeCell otherCell = (mazeCell)other;
+                return (x == otherCell.x) && (y == otherCell.y);
+            }
         }
 
         public class Maze
@@ -173,7 +181,11 @@ namespace Maze_game_NEA
                     };
                     foreach (mazeCell neighbourCell in possibleNeighbours)
                     {
-                        if (neighbourCell != null || !neighbourCell.Visited)
+                        if (neighbourCell == null || neighbourCell.Visited)
+                        {
+                            continue;
+                        }
+                        else
                         {
                             neighbourCells.Add(neighbourCell);
                         }
@@ -251,12 +263,12 @@ namespace Maze_game_NEA
                         }
                     }
                 }
+                Invalidate();
             }
             catch (NullReferenceException)
             {
                 MessageBox.Show("Select an option from the drop down menu");
             }
-            Invalidate();
         }
 
         public void drawCells()
