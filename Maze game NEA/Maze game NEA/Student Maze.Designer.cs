@@ -89,28 +89,27 @@
             // 
             // generateBtn
             // 
-            this.generateBtn.Location = new System.Drawing.Point(571, 88);
+            this.generateBtn.Location = new System.Drawing.Point(612, 88);
             this.generateBtn.Name = "generateBtn";
             this.generateBtn.Size = new System.Drawing.Size(75, 23);
             this.generateBtn.TabIndex = 10;
-            this.generateBtn.Text = "button1";
+            this.generateBtn.Text = "Generate";
             this.generateBtn.UseVisualStyleBackColor = true;
             this.generateBtn.Click += new System.EventHandler(this.generateBtn_Click);
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(253, 44);
+            this.label3.Location = new System.Drawing.Point(269, 61);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(35, 13);
+            this.label3.Size = new System.Drawing.Size(0, 13);
             this.label3.TabIndex = 11;
-            this.label3.Text = "label3";
             // 
             // Student_Maze
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.SystemColors.ControlDark;
+            this.BackColor = System.Drawing.SystemColors.Control;
             this.ClientSize = new System.Drawing.Size(699, 652);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.generateBtn);
