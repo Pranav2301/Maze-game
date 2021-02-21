@@ -17,6 +17,12 @@ namespace Maze_game_NEA
         int[,] outputGrid; //2d array that represents the grid for the maze
         int cellSize; //represents the size of each cell in the grid
         Maze maze;
+        PictureBox picture = new PictureBox();
+        int Gridx;
+        int Gridy;
+
+        int step;
+
 
         const int startPoint = 1;
         const int endPoint = 2;
@@ -218,41 +224,6 @@ namespace Maze_game_NEA
             } 
         }
 
-        public void getDifficulty()
-        {
-            Random rand = new Random();
-            try
-            {
-                if (difficultyBox.SelectedItem.ToString() == "Easy")
-                {
-                    rows = rand.Next(10, 20);
-                    columns = rand.Next(10, 20);
-                }
-                else if (difficultyBox.SelectedItem.ToString() == "Medium")
-                {
-                    rows = rand.Next(40, 50);
-                    columns = rand.Next(40, 50);
-                }
-                else if (difficultyBox.SelectedItem.ToString() == "Hard")
-                {
-                    rows = rand.Next(60, 80);
-                    columns = rand.Next(60, 80);
-                }
-                if (rows > columns)
-                {
-                    cellSize = 500 / rows;
-                }
-                else
-                {
-                    cellSize = 500 / columns;
-                }
-            }
-            catch (NullReferenceException)
-            {
-                MessageBox.Show("Select an option from the drop down menu");
-            }
-        }
-
         public void drawCells()
         {
             for (int i = 0; i < rows; i++)
@@ -266,9 +237,24 @@ namespace Maze_game_NEA
             outputGrid[0, columns - 1] = endPoint;
         }
 
+        public bool endReach(int x, int y)
+        {
+            if (outputGrid[x, y] == endPoint)
+            {
+                MessageBox.Show("You have completed the maze");
+                return true;            
+            }
+            else
+            {
+                return false;
+            }
+        }
+
         private void generateBtn_Click(object sender, EventArgs e)
         {
             createGrid();
+            Gridx = rows - 1;
+            Gridy = 0;
         }
 
         private void Student_Maze_Paint(object sender, PaintEventArgs e)
@@ -278,15 +264,31 @@ namespace Maze_game_NEA
             Rectangle rect;
             Pen Pen = new Pen(Color.Black, 2);
             brush = new SolidBrush(Color.Black);
+            rect = new Rectangle(13, 69, columns * cellSize, rows * cellSize);
+            e.Graphics.DrawRectangle(Pen, rect);
             for (int i = 0; i < rows; i++)
                 for (int j = 0; j < columns; j++)
                 {
                     if (outputGrid[i, j] == empty)
+                    {
                         brush = new SolidBrush(Color.White);
+                    }
                     else if (outputGrid[i, j] == startPoint)
+                    {
                         brush = new SolidBrush(Color.Red);
+                        picture = new PictureBox
+                        {
+                            Name = "pictureBox",
+                            Size = new Size(cellSize / 2, cellSize / 2),
+                            Location = new Point(13 + j * cellSize + cellSize / 4, 69 + i * cellSize + (cellSize / 4)),
+                            BackColor = Color.Blue,
+                        };
+                        this.Controls.Add(picture);
+                    }
                     else if (outputGrid[i, j] == endPoint)
+                    {
                         brush = new SolidBrush(Color.Green);
+                    }
                     rect = new Rectangle(13 + j * cellSize, 69 + i * cellSize, cellSize - 1, cellSize - 1);
                     graphics.FillRectangle(brush, rect);
                     brush.Dispose();
@@ -309,6 +311,81 @@ namespace Maze_game_NEA
                     }
 
                 }
+        }
+
+        private void Student_Maze_KeyDown(object sender, KeyEventArgs e)
+        {           
+            if (e.KeyData == Keys.Up)
+            {
+                if (maze.getMazeCell(Gridx,Gridy).walls[0] || Gridx == 0)
+                {
+                    MessageBox.Show("You hit a wall");
+                }
+                else if (endReach(Gridx, Gridy))
+                {
+                    return;
+                }
+                else
+                {
+                    MessageBox.Show("bot");
+                    step++;
+                    Gridx--;
+                    picture.Location = new Point(13 + Gridy * cellSize + cellSize / 4, 69 + Gridx * cellSize + (cellSize / 4));
+                }
+            }
+            if (e.KeyData == Keys.Right)
+            {
+                if (maze.getMazeCell(Gridx, Gridy).walls[1] || Gridy == columns - 1)
+                {
+                    MessageBox.Show("You hit a wall");
+                }
+                else if (endReach(Gridx, Gridy))
+                {
+                    return;
+                }
+                else
+                {
+                    step++;
+                    Gridy++;
+                    picture.Location = new Point(13 + Gridy * cellSize + cellSize / 4, 69 + Gridx * cellSize + (cellSize / 4));
+                    
+                }
+            }
+            if (e.KeyData == Keys.Down)
+            {
+                if (maze.getMazeCell(Gridx, Gridy).walls[2] || Gridx == rows - 1)
+                {
+                    MessageBox.Show("You hit a wall");
+                }
+                else if (endReach(Gridx, Gridy))
+                {
+                    return;
+                }
+                else
+                {
+                    step++;
+                    Gridx++;
+                    picture.Location = new Point(13 + Gridy * cellSize + cellSize / 4, 69 + Gridx * cellSize + (cellSize / 4));
+                }
+
+            }
+            if (e.KeyData == Keys.Left)
+            {
+                if (maze.getMazeCell(Gridx, Gridy).walls[3] || Gridy == 0)
+                {
+                    MessageBox.Show("You hit a wall");
+                }
+                else if (endReach(Gridx, Gridy))
+                {
+                    return;
+                }
+                else
+                {
+                    step++;
+                    Gridy--;
+                    picture.Location = new Point(13 + Gridy * cellSize + cellSize / 4, 69 + Gridx * cellSize + (cellSize / 4));
+                }
+            }
         }
     }
 

@@ -121,6 +121,7 @@
             this.Name = "Student_Maze";
             this.Text = "Student_Maze";
             this.Paint += new System.Windows.Forms.PaintEventHandler(this.Student_Maze_Paint);
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Student_Maze_KeyDown);
             this.ResumeLayout(false);
             this.PerformLayout();
 
