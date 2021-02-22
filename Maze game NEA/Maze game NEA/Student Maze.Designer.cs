@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.homeBtn = new System.Windows.Forms.Button();
             this.helpBtn = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
@@ -35,6 +36,7 @@
             this.label2 = new System.Windows.Forms.Label();
             this.generateBtn = new System.Windows.Forms.Button();
             this.label3 = new System.Windows.Forms.Label();
+            this.moveTimer = new System.Windows.Forms.Timer(this.components);
             this.SuspendLayout();
             // 
             // homeBtn
@@ -105,6 +107,12 @@
             this.label3.Size = new System.Drawing.Size(0, 13);
             this.label3.TabIndex = 11;
             // 
+            // moveTimer
+            // 
+            this.moveTimer.Enabled = true;
+            this.moveTimer.Interval = 20;
+            this.moveTimer.Tick += new System.EventHandler(this.moveTimer_Tick);
+            // 
             // Student_Maze
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -122,6 +130,7 @@
             this.Text = "Student_Maze";
             this.Paint += new System.Windows.Forms.PaintEventHandler(this.Student_Maze_Paint);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Student_Maze_KeyDown);
+            this.KeyUp += new System.Windows.Forms.KeyEventHandler(this.Student_Maze_KeyUp);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -136,6 +145,7 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Button generateBtn;
         private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Timer moveTimer;
 
     }
 }

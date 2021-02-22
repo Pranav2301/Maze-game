@@ -20,7 +20,7 @@ namespace Maze_game_NEA
         PictureBox picture = new PictureBox();
         int Gridx;
         int Gridy;
-
+        bool moveUp, moveDown, moveRight, moveLeft;
         int step;
 
 
@@ -253,6 +253,14 @@ namespace Maze_game_NEA
         private void generateBtn_Click(object sender, EventArgs e)
         {
             createGrid();
+            picture = new PictureBox
+            {
+                Name = "pictureBox",
+                Size = new Size(cellSize / 2, cellSize / 2),
+                Location = new Point(13 + cellSize / 4, 69 + (rows - 1) * cellSize + (cellSize / 4)),
+                BackColor = Color.Blue,
+            };
+            this.Controls.Add(picture);
             Gridx = rows - 1;
             Gridy = 0;
         }
@@ -276,14 +284,6 @@ namespace Maze_game_NEA
                     else if (outputGrid[i, j] == startPoint)
                     {
                         brush = new SolidBrush(Color.Red);
-                        picture = new PictureBox
-                        {
-                            Name = "pictureBox",
-                            Size = new Size(cellSize / 2, cellSize / 2),
-                            Location = new Point(13 + j * cellSize + cellSize / 4, 69 + i * cellSize + (cellSize / 4)),
-                            BackColor = Color.Blue,
-                        };
-                        this.Controls.Add(picture);
                     }
                     else if (outputGrid[i, j] == endPoint)
                     {
@@ -314,10 +314,30 @@ namespace Maze_game_NEA
         }
 
         private void Student_Maze_KeyDown(object sender, KeyEventArgs e)
-        {           
-            if (e.KeyData == Keys.Up)
+        {    
+            if (e.KeyCode == Keys.W)
             {
-                if (maze.getMazeCell(Gridx,Gridy).walls[0] || Gridx == 0)
+                moveUp = true;
+            }
+            if (e.KeyCode == Keys.D)
+            {
+                moveRight = true;
+            }
+            if (e.KeyCode == Keys.S)
+            {
+                moveDown = true;
+            }
+            if (e.KeyCode == Keys.A)
+            {
+                moveLeft = true;      
+            }
+        }
+
+        private void moveTimer_Tick(object sender, EventArgs e)
+        {
+            if (moveUp == true)
+            {
+                if (maze.getMazeCell(Gridx, Gridy).walls[0] || Gridx == 0)
                 {
                     MessageBox.Show("You hit a wall");
                 }
@@ -327,13 +347,13 @@ namespace Maze_game_NEA
                 }
                 else
                 {
-                    MessageBox.Show("bot");
                     step++;
                     Gridx--;
                     picture.Location = new Point(13 + Gridy * cellSize + cellSize / 4, 69 + Gridx * cellSize + (cellSize / 4));
+                    picture.Top -= cellSize;
                 }
             }
-            if (e.KeyData == Keys.Right)
+            else if (moveRight == true)
             {
                 if (maze.getMazeCell(Gridx, Gridy).walls[1] || Gridy == columns - 1)
                 {
@@ -348,10 +368,9 @@ namespace Maze_game_NEA
                     step++;
                     Gridy++;
                     picture.Location = new Point(13 + Gridy * cellSize + cellSize / 4, 69 + Gridx * cellSize + (cellSize / 4));
-                    
                 }
             }
-            if (e.KeyData == Keys.Down)
+            else if (moveDown == true)
             {
                 if (maze.getMazeCell(Gridx, Gridy).walls[2] || Gridx == rows - 1)
                 {
@@ -367,9 +386,8 @@ namespace Maze_game_NEA
                     Gridx++;
                     picture.Location = new Point(13 + Gridy * cellSize + cellSize / 4, 69 + Gridx * cellSize + (cellSize / 4));
                 }
-
             }
-            if (e.KeyData == Keys.Left)
+            else if (moveLeft == true)
             {
                 if (maze.getMazeCell(Gridx, Gridy).walls[3] || Gridy == 0)
                 {
@@ -385,6 +403,26 @@ namespace Maze_game_NEA
                     Gridy--;
                     picture.Location = new Point(13 + Gridy * cellSize + cellSize / 4, 69 + Gridx * cellSize + (cellSize / 4));
                 }
+            }
+        }
+
+        private void Student_Maze_KeyUp(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.W)
+            {
+                moveUp = false;
+            }
+            if (e.KeyCode == Keys.D)
+            {
+                moveRight = false;
+            }
+            if (e.KeyCode == Keys.S)
+            {
+                moveDown = false;
+            }
+            if (e.KeyCode == Keys.A)
+            {
+                moveLeft = false;
             }
         }
     }
