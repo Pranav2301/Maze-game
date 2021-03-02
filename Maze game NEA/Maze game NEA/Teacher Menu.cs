@@ -33,9 +33,12 @@ namespace Maze_game_NEA
                 else if (optionBox.SelectedItem.ToString() == "Print menu")
                 {
                     //print menu form is opened
-                    Print_menu printPage = new Print_menu();
+                    //Print_menu printPage = new Print_menu();
+                    Student_menu menu = new Student_menu();
+                    Student_Maze maze = new Student_Maze(menu);
                     this.Hide();
-                    printPage.ShowDialog();
+                    maze.ShowDialog(this);
+                    //printPage.ShowDialog();
                     this.Close();
                 }
             }

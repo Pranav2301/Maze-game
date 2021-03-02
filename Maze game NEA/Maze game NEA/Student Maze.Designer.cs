@@ -28,15 +28,16 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
             this.homeBtn = new System.Windows.Forms.Button();
             this.helpBtn = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.difficultyBox = new System.Windows.Forms.ComboBox();
             this.label2 = new System.Windows.Forms.Label();
             this.generateBtn = new System.Windows.Forms.Button();
-            this.label3 = new System.Windows.Forms.Label();
-            this.moveTimer = new System.Windows.Forms.Timer(this.components);
+            this.stepLbl = new System.Windows.Forms.Label();
+            this.printNoSol = new System.Windows.Forms.Button();
+            this.time = new System.Windows.Forms.Label();
+            this.printSol = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // homeBtn
@@ -99,19 +100,41 @@
             this.generateBtn.UseVisualStyleBackColor = true;
             this.generateBtn.Click += new System.EventHandler(this.generateBtn_Click);
             // 
-            // label3
+            // stepLbl
             // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(269, 61);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(0, 13);
-            this.label3.TabIndex = 11;
+            this.stepLbl.AutoSize = true;
+            this.stepLbl.Location = new System.Drawing.Point(253, 44);
+            this.stepLbl.Name = "stepLbl";
+            this.stepLbl.Size = new System.Drawing.Size(0, 13);
+            this.stepLbl.TabIndex = 11;
             // 
-            // moveTimer
+            // printNoSol
             // 
-            this.moveTimer.Enabled = true;
-            this.moveTimer.Interval = 20;
-            this.moveTimer.Tick += new System.EventHandler(this.moveTimer_Tick);
+            this.printNoSol.Location = new System.Drawing.Point(599, 117);
+            this.printNoSol.Name = "printNoSol";
+            this.printNoSol.Size = new System.Drawing.Size(99, 39);
+            this.printNoSol.TabIndex = 12;
+            this.printNoSol.Text = "Print WITHOUT solution";
+            this.printNoSol.UseVisualStyleBackColor = true;
+            this.printNoSol.Visible = false;
+            // 
+            // time
+            // 
+            this.time.AutoSize = true;
+            this.time.Location = new System.Drawing.Point(326, 44);
+            this.time.Name = "time";
+            this.time.Size = new System.Drawing.Size(0, 13);
+            this.time.TabIndex = 13;
+            // 
+            // printSol
+            // 
+            this.printSol.Location = new System.Drawing.Point(599, 162);
+            this.printSol.Name = "printSol";
+            this.printSol.Size = new System.Drawing.Size(99, 35);
+            this.printSol.TabIndex = 14;
+            this.printSol.Text = "Print WITH solution";
+            this.printSol.UseVisualStyleBackColor = true;
+            this.printSol.Visible = false;
             // 
             // Student_Maze
             // 
@@ -119,7 +142,10 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Control;
             this.ClientSize = new System.Drawing.Size(699, 652);
-            this.Controls.Add(this.label3);
+            this.Controls.Add(this.printSol);
+            this.Controls.Add(this.time);
+            this.Controls.Add(this.printNoSol);
+            this.Controls.Add(this.stepLbl);
             this.Controls.Add(this.generateBtn);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.difficultyBox);
@@ -128,9 +154,9 @@
             this.Controls.Add(this.homeBtn);
             this.Name = "Student_Maze";
             this.Text = "Student_Maze";
+            this.Load += new System.EventHandler(this.Student_Maze_Load);
             this.Paint += new System.Windows.Forms.PaintEventHandler(this.Student_Maze_Paint);
-            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Student_Maze_KeyDown);
-            this.KeyUp += new System.Windows.Forms.KeyEventHandler(this.Student_Maze_KeyUp);
+            this.MouseDown += new System.Windows.Forms.MouseEventHandler(this.Student_Maze_MouseDown);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -144,8 +170,10 @@
         private System.Windows.Forms.ComboBox difficultyBox;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Button generateBtn;
-        private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.Timer moveTimer;
+        private System.Windows.Forms.Label stepLbl;
+        private System.Windows.Forms.Button printNoSol;
+        private System.Windows.Forms.Label time;
+        private System.Windows.Forms.Button printSol;
 
     }
 }

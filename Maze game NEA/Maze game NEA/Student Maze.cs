@@ -7,6 +7,8 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using System.Collections;
+using System.Diagnostics;
+using System.Drawing.Printing;
 
 namespace Maze_game_NEA
 {
@@ -17,16 +19,14 @@ namespace Maze_game_NEA
         int[,] outputGrid; //2d array that represents the grid for the maze
         int cellSize; //represents the size of each cell in the grid
         Maze maze;
-        PictureBox picture = new PictureBox();
-        int Gridx;
-        int Gridy;
-        bool moveUp, moveDown, moveRight, moveLeft;
-        int step;
-
+        bool startPress;
+        ArrayList validCells;
 
         const int startPoint = 1;
         const int endPoint = 2;
         const int empty = 3;
+        const int userRoute = 4;
+        const int solution = 5;
 
         Student_menu studentMenu;
 
@@ -37,6 +37,7 @@ namespace Maze_game_NEA
             public bool[] walls;
             private bool visited;
             private ArrayList neighbours = new ArrayList();
+            private mazeCell previous;
 
             public mazeCell(int x, int y)
             {
@@ -61,6 +62,13 @@ namespace Maze_game_NEA
                 get { return visited; }
                 set { visited = value; }
             }
+
+            public mazeCell Previous
+            {
+                get { return previous; }
+                set { previous = value; }
+            }
+
             public override bool Equals(Object other)
             {
                 //if (!(other instanceof Cell)) return false;
@@ -202,8 +210,10 @@ namespace Maze_game_NEA
                 }
                 else if (difficultyBox.SelectedItem.ToString() == "Hard")
                 {
-                    rows = rand.Next(60, 80);
-                    columns = rand.Next(60, 80);
+                    //rows = rand.Next(60, 80);
+                    //columns = rand.Next(60, 80);
+                    rows = 60;
+                    columns = 60;
                 }
                 if (rows > columns)
                 {
@@ -221,7 +231,7 @@ namespace Maze_game_NEA
             catch (NullReferenceException)
             {
                 MessageBox.Show("Select an option from the drop down menu");
-            } 
+            }
         }
 
         public void drawCells()
@@ -237,32 +247,34 @@ namespace Maze_game_NEA
             outputGrid[0, columns - 1] = endPoint;
         }
 
-        public bool endReach(int x, int y)
+        public void checkWalls(int x, int y)
         {
-            if (outputGrid[x, y] == endPoint)
+            validCells = new ArrayList();
+            if (!maze.getMazeCell(x, y).walls[0])
             {
-                MessageBox.Show("You have completed the maze");
-                return true;            
+                validCells.Add(x - 1);
+                validCells.Add(y);
             }
-            else
+            if (!maze.getMazeCell(x, y).walls[1])
             {
-                return false;
+                validCells.Add(x);
+                validCells.Add(y + 1);
+            }
+            if (!maze.getMazeCell(x, y).walls[2])
+            {
+                validCells.Add(x + 1);
+                validCells.Add(y);
+            }
+            if (!maze.getMazeCell(x, y).walls[3])
+            {
+                validCells.Add(x);
+                validCells.Add(y - 1);
             }
         }
 
         private void generateBtn_Click(object sender, EventArgs e)
         {
             createGrid();
-            picture = new PictureBox
-            {
-                Name = "pictureBox",
-                Size = new Size(cellSize / 2, cellSize / 2),
-                Location = new Point(13 + cellSize / 4, 69 + (rows - 1) * cellSize + (cellSize / 4)),
-                BackColor = Color.Blue,
-            };
-            this.Controls.Add(picture);
-            Gridx = rows - 1;
-            Gridy = 0;
         }
 
         private void Student_Maze_Paint(object sender, PaintEventArgs e)
@@ -289,6 +301,14 @@ namespace Maze_game_NEA
                     {
                         brush = new SolidBrush(Color.Green);
                     }
+                    else if (outputGrid[i, j] == userRoute)
+                    {
+                        brush = new SolidBrush(Color.Yellow);
+                    }
+                    else if (outputGrid[i, j] == solution)
+                    {
+                        brush = new SolidBrush(Color.Blue);
+                    }
                     rect = new Rectangle(13 + j * cellSize, 69 + i * cellSize, cellSize - 1, cellSize - 1);
                     graphics.FillRectangle(brush, rect);
                     brush.Dispose();
@@ -309,124 +329,65 @@ namespace Maze_game_NEA
                     {
                         graphics.DrawLine(Pen, 13 + j * cellSize, 69 + i * cellSize, 13 + j * cellSize, 69 + (i + 1) * cellSize);
                     }
-
                 }
         }
 
-        private void Student_Maze_KeyDown(object sender, KeyEventArgs e)
-        {    
-            if (e.KeyCode == Keys.W)
-            {
-                moveUp = true;
-            }
-            if (e.KeyCode == Keys.D)
-            {
-                moveRight = true;
-            }
-            if (e.KeyCode == Keys.S)
-            {
-                moveDown = true;
-            }
-            if (e.KeyCode == Keys.A)
-            {
-                moveLeft = true;      
-            }
-        }
-
-        private void moveTimer_Tick(object sender, EventArgs e)
+        private void Student_Maze_MouseDown(object sender, MouseEventArgs e)
         {
-            if (moveUp == true)
+            try
             {
-                if (maze.getMazeCell(Gridx, Gridy).walls[0] || Gridx == 0)
+                int currentRow = (e.Y - 69) / cellSize;
+                int currentColumn = (e.X - 13) / cellSize;
+                if (startPress == false)
                 {
-                    MessageBox.Show("You hit a wall");
+                    if (outputGrid[currentRow, currentColumn] == startPoint)
+                    {
+                        startPress = true;
+                        checkWalls(currentRow, currentColumn);
+                        return;
+                    }
+                    else
+                    {
+                        MessageBox.Show("You need to begin from the start point");
+                        return;
+                    }
                 }
-                else if (endReach(Gridx, Gridy))
+
+                if (currentRow >= 0 && currentRow < rows && currentColumn >= 0 && currentColumn < columns)
                 {
-                    return;
+                    if (outputGrid[currentRow, currentColumn] != endPoint)
+                    {
+                        for (int i = 0; i < validCells.Count; i += 2)
+                        {
+                            if (currentRow == (int)validCells[i] && currentColumn == (int)validCells[i + 1])
+                            {
+                                outputGrid[currentRow, currentColumn] = userRoute;
+                                checkWalls(currentRow, currentColumn);
+                            }
+                        }
+                    }
+                    else
+                    {
+                        MessageBox.Show("Congratulations you reached the end;");
+                    }
                 }
-                else
-                {
-                    step++;
-                    Gridx--;
-                    picture.Location = new Point(13 + Gridy * cellSize + cellSize / 4, 69 + Gridx * cellSize + (cellSize / 4));
-                    picture.Top -= cellSize;
-                }
+                Invalidate();
             }
-            else if (moveRight == true)
+            catch (Exception)
             {
-                if (maze.getMazeCell(Gridx, Gridy).walls[1] || Gridy == columns - 1)
-                {
-                    MessageBox.Show("You hit a wall");
-                }
-                else if (endReach(Gridx, Gridy))
-                {
-                    return;
-                }
-                else
-                {
-                    step++;
-                    Gridy++;
-                    picture.Location = new Point(13 + Gridy * cellSize + cellSize / 4, 69 + Gridx * cellSize + (cellSize / 4));
-                }
-            }
-            else if (moveDown == true)
-            {
-                if (maze.getMazeCell(Gridx, Gridy).walls[2] || Gridx == rows - 1)
-                {
-                    MessageBox.Show("You hit a wall");
-                }
-                else if (endReach(Gridx, Gridy))
-                {
-                    return;
-                }
-                else
-                {
-                    step++;
-                    Gridx++;
-                    picture.Location = new Point(13 + Gridy * cellSize + cellSize / 4, 69 + Gridx * cellSize + (cellSize / 4));
-                }
-            }
-            else if (moveLeft == true)
-            {
-                if (maze.getMazeCell(Gridx, Gridy).walls[3] || Gridy == 0)
-                {
-                    MessageBox.Show("You hit a wall");
-                }
-                else if (endReach(Gridx, Gridy))
-                {
-                    return;
-                }
-                else
-                {
-                    step++;
-                    Gridy--;
-                    picture.Location = new Point(13 + Gridy * cellSize + cellSize / 4, 69 + Gridx * cellSize + (cellSize / 4));
-                }
+                MessageBox.Show("You need to select a cell inside the grid");
             }
         }
 
-        private void Student_Maze_KeyUp(object sender, KeyEventArgs e)
+        private void Student_Maze_Load(object sender, EventArgs e)
         {
-            if (e.KeyCode == Keys.W)
+            if (this.Owner is Teacher_Menu)
             {
-                moveUp = false;
-            }
-            if (e.KeyCode == Keys.D)
-            {
-                moveRight = false;
-            }
-            if (e.KeyCode == Keys.S)
-            {
-                moveDown = false;
-            }
-            if (e.KeyCode == Keys.A)
-            {
-                moveLeft = false;
+                printNoSol.Visible = true;
+                printSol.Visible = true;
             }
         }
     }
-
     }
 
 
