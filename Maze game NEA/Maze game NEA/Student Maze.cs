@@ -36,7 +36,6 @@ namespace Maze_game_NEA
             private int y;
             public bool[] walls;
             private bool visited;
-            private ArrayList neighbours = new ArrayList();
             private mazeCell previous;
 
             public mazeCell(int x, int y)
@@ -62,6 +61,7 @@ namespace Maze_game_NEA
                 get { return visited; }
                 set { visited = value; }
             }
+
 
             public mazeCell Previous
             {
@@ -210,10 +210,8 @@ namespace Maze_game_NEA
                 }
                 else if (difficultyBox.SelectedItem.ToString() == "Hard")
                 {
-                    //rows = rand.Next(60, 80);
-                    //columns = rand.Next(60, 80);
-                    rows = 60;
-                    columns = 60;
+                    rows = rand.Next(60, 80);
+                    columns = rand.Next(60, 80);
                 }
                 if (rows > columns)
                 {
@@ -317,15 +315,15 @@ namespace Maze_game_NEA
                     {
                         graphics.DrawLine(Pen, 13 + j * cellSize, 69 + i * cellSize, 13 + (j + 1) * cellSize, 69 + i * cellSize);
                     }
-                    else if (maze.getMazeCell(i, j).walls[1])
+                    if (maze.getMazeCell(i, j).walls[1])
                     {
                         graphics.DrawLine(Pen, 13 + (j + 1) * cellSize, 69 + i * cellSize, 13 + (j + 1) * cellSize, 69 + (i + 1) * cellSize);
                     }
-                    else if (maze.getMazeCell(i, j).walls[2])
+                    if (maze.getMazeCell(i, j).walls[2])
                     {
                         graphics.DrawLine(Pen, 13 + j * cellSize, 69 + (i + 1) * cellSize, 13 + (j + 1) * cellSize, 69 + (i + 1) * cellSize);
                     }
-                    else if (maze.getMazeCell(i, j).walls[3])
+                    if (maze.getMazeCell(i, j).walls[3])
                     {
                         graphics.DrawLine(Pen, 13 + j * cellSize, 69 + i * cellSize, 13 + j * cellSize, 69 + (i + 1) * cellSize);
                     }
