@@ -270,6 +270,51 @@ namespace Maze_game_NEA
             }
         }
 
+        public void backtrack(mazeCell cell)
+        {
+            mazeCell current = cell;
+            while (current.Previous != maze.getMazeCell(rows - 1, 0))
+            {
+                outputGrid[current.Previous.X, current.Previous.Y] = solution;
+                current = current.Previous;
+            }
+            Invalidate();
+        }
+
+        public void solveMaze()
+        {
+            ArrayList visitedCells = new ArrayList();
+            Queue<mazeCell> unvisitedCells = new Queue<mazeCell>();
+            mazeCell currentCell;
+            unvisitedCells.Enqueue(maze.getMazeCell(rows - 1, 0));
+            while (!visitedCells.Contains(maze.getMazeCell(0, columns - 1)))
+            {
+                currentCell = unvisitedCells.Dequeue();
+                visitedCells.Add(currentCell);
+                if (!currentCell.walls[0] && !visitedCells.Contains(maze.getMazeCell(currentCell.X - 1, currentCell.Y)))
+                {
+                    unvisitedCells.Enqueue(maze.getMazeCell(currentCell.X - 1, currentCell.Y));
+                    maze.getMazeCell(currentCell.X - 1, currentCell.Y).Previous = currentCell;
+                }
+                if (!currentCell.walls[1] && !visitedCells.Contains(maze.getMazeCell(currentCell.X, currentCell.Y + 1)))
+                {
+                    unvisitedCells.Enqueue(maze.getMazeCell(currentCell.X, currentCell.Y + 1));
+                    maze.getMazeCell(currentCell.X, currentCell.Y + 1).Previous = currentCell;
+                }
+                if (!currentCell.walls[2] && !visitedCells.Contains(maze.getMazeCell(currentCell.X + 1, currentCell.Y)))
+                {
+                    unvisitedCells.Enqueue(maze.getMazeCell(currentCell.X + 1, currentCell.Y));
+                    maze.getMazeCell(currentCell.X + 1, currentCell.Y).Previous = currentCell;
+                }
+                if (!currentCell.walls[3] && !visitedCells.Contains(maze.getMazeCell(currentCell.X, currentCell.Y - 1)))
+                {
+                    unvisitedCells.Enqueue(maze.getMazeCell(currentCell.X, currentCell.Y - 1));
+                    maze.getMazeCell(currentCell.X, currentCell.Y - 1).Previous = currentCell;
+                }
+            }
+            backtrack(maze.getMazeCell(0, columns - 1));
+        }
+
         private void generateBtn_Click(object sender, EventArgs e)
         {
             createGrid();
@@ -353,21 +398,21 @@ namespace Maze_game_NEA
 
                 if (currentRow >= 0 && currentRow < rows && currentColumn >= 0 && currentColumn < columns)
                 {
-                    if (outputGrid[currentRow, currentColumn] != endPoint)
-                    {
                         for (int i = 0; i < validCells.Count; i += 2)
                         {
                             if (currentRow == (int)validCells[i] && currentColumn == (int)validCells[i + 1])
                             {
-                                outputGrid[currentRow, currentColumn] = userRoute;
-                                checkWalls(currentRow, currentColumn);
+                                if (outputGrid[currentRow, currentColumn] == endPoint)
+                                {
+                                    MessageBox.Show("Congratulations you reached the end.");
+                                }
+                                else
+                                {
+                                    outputGrid[currentRow, currentColumn] = userRoute;
+                                    checkWalls(currentRow, currentColumn);
+                                }
                             }
                         }
-                    }
-                    else
-                    {
-                        MessageBox.Show("Congratulations you reached the end;");
-                    }
                 }
                 Invalidate();
             }
@@ -384,6 +429,11 @@ namespace Maze_game_NEA
                 printNoSol.Visible = true;
                 printSol.Visible = true;
             }
+        }
+
+        private void printNoSol_Click(object sender, EventArgs e)
+        {
+            solveMaze();
         }
     }
     }

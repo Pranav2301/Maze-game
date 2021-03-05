@@ -117,6 +117,7 @@
             this.printNoSol.Text = "Print WITHOUT solution";
             this.printNoSol.UseVisualStyleBackColor = true;
             this.printNoSol.Visible = false;
+            this.printNoSol.Click += new System.EventHandler(this.printNoSol_Click);
             // 
             // time
             // 
