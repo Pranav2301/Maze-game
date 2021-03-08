@@ -21,12 +21,18 @@ namespace Maze_game_NEA
         Maze maze;
         bool startPress;
         ArrayList validCells;
+        int step;
+        Stopwatch mazeTime = new Stopwatch();
+        int score;
 
         const int startPoint = 1;
         const int endPoint = 2;
         const int empty = 3;
         const int userRoute = 4;
         const int solution = 5;
+        const int easy = 20;
+        const int medium = 150;
+        const int hard = 300;
 
         Student_menu studentMenu;
 
@@ -129,7 +135,6 @@ namespace Maze_game_NEA
                 {
                     current.walls[3] = false;//remove left wall of current
                     random.walls[1] = false;//remove right wall of random
-                    //remove = "left";
                 }
                 else if (checkX == -1)
                 {
@@ -318,6 +323,7 @@ namespace Maze_game_NEA
         private void generateBtn_Click(object sender, EventArgs e)
         {
             createGrid();
+            mazeTime.Start();
         }
 
         private void Student_Maze_Paint(object sender, PaintEventArgs e)
@@ -398,21 +404,38 @@ namespace Maze_game_NEA
 
                 if (currentRow >= 0 && currentRow < rows && currentColumn >= 0 && currentColumn < columns)
                 {
-                        for (int i = 0; i < validCells.Count; i += 2)
+                    for (int i = 0; i < validCells.Count; i += 2)
+                    {
+                        if (currentRow == (int)validCells[i] && currentColumn == (int)validCells[i + 1])
                         {
-                            if (currentRow == (int)validCells[i] && currentColumn == (int)validCells[i + 1])
+                            if (outputGrid[currentRow, currentColumn] == endPoint)
                             {
-                                if (outputGrid[currentRow, currentColumn] == endPoint)
+                                mazeTime.Stop();
+                                float timeTaken = (float)mazeTime.Elapsed.Minutes * 60 + mazeTime.Elapsed.Seconds;
+                                MessageBox.Show("Congratulations you reached the end.");
+                                switch (difficultyBox.SelectedItem.ToString())
                                 {
-                                    MessageBox.Show("Congratulations you reached the end.");
+                                    case "Easy":
+                                        score = (int)(easy * step / timeTaken);
+                                        break;
+                                    case "Medium":
+                                        score = (int)(medium * step / timeTaken);
+                                        break;
+                                    case "Hard":
+                                        score = (int)(hard * step / timeTaken);
+                                        break;
                                 }
-                                else
-                                {
-                                    outputGrid[currentRow, currentColumn] = userRoute;
-                                    checkWalls(currentRow, currentColumn);
-                                }
+                                scoreLbl.Text = "Score: " + score.ToString();
+                            }
+                            else
+                            {
+                                outputGrid[currentRow, currentColumn] = userRoute;
+                                step++;
+                                stepLbl.Text = "Steps: " + step.ToString();
+                                checkWalls(currentRow, currentColumn);
                             }
                         }
+                    }
                 }
                 Invalidate();
             }
@@ -435,7 +458,13 @@ namespace Maze_game_NEA
         {
             solveMaze();
         }
+
+        private void mazeTimer_Tick(object sender, EventArgs e)
+        {
+            time.Text = "Time: " + mazeTime.Elapsed.ToString(@"mm\:ss");
+        }
     }
+
     }
 
 

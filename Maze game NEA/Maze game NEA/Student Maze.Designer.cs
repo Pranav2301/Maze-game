@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.homeBtn = new System.Windows.Forms.Button();
             this.helpBtn = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
@@ -38,6 +39,8 @@
             this.printNoSol = new System.Windows.Forms.Button();
             this.time = new System.Windows.Forms.Label();
             this.printSol = new System.Windows.Forms.Button();
+            this.mazeTimer = new System.Windows.Forms.Timer(this.components);
+            this.scoreLbl = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // homeBtn
@@ -137,12 +140,26 @@
             this.printSol.UseVisualStyleBackColor = true;
             this.printSol.Visible = false;
             // 
+            // mazeTimer
+            // 
+            this.mazeTimer.Enabled = true;
+            this.mazeTimer.Tick += new System.EventHandler(this.mazeTimer_Tick);
+            // 
+            // scoreLbl
+            // 
+            this.scoreLbl.AutoSize = true;
+            this.scoreLbl.Location = new System.Drawing.Point(389, 44);
+            this.scoreLbl.Name = "scoreLbl";
+            this.scoreLbl.Size = new System.Drawing.Size(0, 13);
+            this.scoreLbl.TabIndex = 15;
+            // 
             // Student_Maze
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Control;
             this.ClientSize = new System.Drawing.Size(699, 652);
+            this.Controls.Add(this.scoreLbl);
             this.Controls.Add(this.printSol);
             this.Controls.Add(this.time);
             this.Controls.Add(this.printNoSol);
@@ -175,6 +192,8 @@
         private System.Windows.Forms.Button printNoSol;
         private System.Windows.Forms.Label time;
         private System.Windows.Forms.Button printSol;
+        private System.Windows.Forms.Timer mazeTimer;
+        private System.Windows.Forms.Label scoreLbl;
 
     }
 }
