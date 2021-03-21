@@ -40,7 +40,7 @@ namespace Maze_game_NEA
            //check connection by performing a lookup check in the database
            SqlConnection sqlcon = new SqlConnection(@"Data Source=(LocalDB)\v11.0;AttachDbFilename=C:\Users\Main\Documents\Visual Studio 2012\Projects\Maze game NEA\Maze game NEA\loginTest.mdf;Integrated Security=True;Connect Timeout=30");
            sqlcon.Open();
-           string existQuery = "SELECT COUNT(*) FROM studentTest WHERE FirstName='" + firstNameTxt.Text + "' AND Surname ='" + surnameTxt.Text + "'";
+           string existQuery = "SELECT COUNT(*) FROM Student WHERE FirstName='" + firstNameTxt.Text + "' AND Surname ='" + surnameTxt.Text + "'";
            SqlCommand sqlcom = new SqlCommand(existQuery, sqlcon);
            int match = (int)sqlcom.ExecuteScalar();
            //check if what the user enters in the textbox returns from the database
@@ -87,19 +87,33 @@ namespace Maze_game_NEA
            string firstName = firstNameTxt.Text;
            string surname = surnameTxt.Text;
            string studentClass = classTxt.Text;
+           SqlCommand sqlcom; 
+           SqlConnection sqlcon = new SqlConnection(@"Data Source=(LocalDB)\v11.0;AttachDbFilename=C:\Users\Main\Documents\Visual Studio 2012\Projects\Maze game NEA\Maze game NEA\loginTest.mdf;Integrated Security=True;Connect Timeout=30");
+           sqlcon.Open();
            if (!checkStudentExists())
            {
                //if student doesn't exist in the DB, write their details to the DB
-               SqlConnection sqlcon = new SqlConnection(@"Data Source=(LocalDB)\v11.0;AttachDbFilename=C:\Users\Main\Documents\Visual Studio 2012\Projects\Maze game NEA\Maze game NEA\loginTest.mdf;Integrated Security=True;Connect Timeout=30");
-               sqlcon.Open();
-               string query = "insert into studentTest values(@FirstName,@Surname,@Class)";
-               SqlCommand sqlcom = new SqlCommand(query, sqlcon);
+               string query = "insert into Student(FirstName, Surname, Class) values(@FirstName,@Surname,@Class)";
+               sqlcom = new SqlCommand(query, sqlcon);
                sqlcom.Parameters.AddWithValue("FirstName", firstName);
                sqlcom.Parameters.AddWithValue("Surname", surname);
                sqlcom.Parameters.AddWithValue("Class", studentClass);
                sqlcom.ExecuteNonQuery();
            }
-           Student_Maze maze = new Student_Maze(this);
+           string getIDQuery = "SELECT * FROM Teacher WHERE class='" + studentClass + "'";//Get record where class matches the class entered by the student
+           SqlDataAdapter sqlda = new SqlDataAdapter(getIDQuery, sqlcon);
+           DataTable teacherTable = new DataTable();
+           sqlda.Fill(teacherTable);
+           //checks if there is a record in the teacherTable that matches the class entered by the student
+           if (teacherTable.Rows.Count == 1)
+           {
+               int teacherID = (int)teacherTable.Rows[0][0];//get primary key from Teacher table
+               string updateQuery = "UPDATE Student SET teacherID = @teacherID WHERE FirstName='" + firstName + "' AND Surname='" + surname + "'";
+               sqlcom = new SqlCommand(updateQuery, sqlcon);
+               sqlcom.Parameters.AddWithValue("teacherID", teacherID);//add foreign key to the Student table
+               sqlcom.ExecuteNonQuery();
+           }
+           Student_Maze maze = new Student_Maze(this);//open student maze form passing an instance of this form
            this.Hide();
            maze.ShowDialog();
            this.Close();

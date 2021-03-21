@@ -204,7 +204,6 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Button enterBtn;
-        private System.Windows.Forms.TextBox usernameTxt;
         private System.Windows.Forms.TextBox passwordTxt;
         private System.Windows.Forms.ComboBox optionBox;
         private System.Windows.Forms.Label verificationLbl;
@@ -212,5 +211,6 @@
         private System.Windows.Forms.Label passLbl;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.LinkLabel regLabel;
+        public System.Windows.Forms.TextBox usernameTxt;
     }
 }

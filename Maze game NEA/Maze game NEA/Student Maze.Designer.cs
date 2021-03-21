@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Student_Maze));
             this.homeBtn = new System.Windows.Forms.Button();
             this.helpBtn = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
@@ -36,11 +37,13 @@
             this.label2 = new System.Windows.Forms.Label();
             this.generateBtn = new System.Windows.Forms.Button();
             this.stepLbl = new System.Windows.Forms.Label();
-            this.printNoSol = new System.Windows.Forms.Button();
-            this.time = new System.Windows.Forms.Label();
-            this.printSol = new System.Windows.Forms.Button();
+            this.timeLbl = new System.Windows.Forms.Label();
             this.mazeTimer = new System.Windows.Forms.Timer(this.components);
             this.scoreLbl = new System.Windows.Forms.Label();
+            this.mazePrint = new System.Drawing.Printing.PrintDocument();
+            this.mazePreview = new System.Windows.Forms.PrintPreviewDialog();
+            this.printBtn = new System.Windows.Forms.Button();
+            this.shortestPathBtn = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // homeBtn
@@ -111,34 +114,13 @@
             this.stepLbl.Size = new System.Drawing.Size(0, 13);
             this.stepLbl.TabIndex = 11;
             // 
-            // printNoSol
+            // timeLbl
             // 
-            this.printNoSol.Location = new System.Drawing.Point(599, 117);
-            this.printNoSol.Name = "printNoSol";
-            this.printNoSol.Size = new System.Drawing.Size(99, 39);
-            this.printNoSol.TabIndex = 12;
-            this.printNoSol.Text = "Print WITHOUT solution";
-            this.printNoSol.UseVisualStyleBackColor = true;
-            this.printNoSol.Visible = false;
-            this.printNoSol.Click += new System.EventHandler(this.printNoSol_Click);
-            // 
-            // time
-            // 
-            this.time.AutoSize = true;
-            this.time.Location = new System.Drawing.Point(326, 44);
-            this.time.Name = "time";
-            this.time.Size = new System.Drawing.Size(0, 13);
-            this.time.TabIndex = 13;
-            // 
-            // printSol
-            // 
-            this.printSol.Location = new System.Drawing.Point(599, 162);
-            this.printSol.Name = "printSol";
-            this.printSol.Size = new System.Drawing.Size(99, 35);
-            this.printSol.TabIndex = 14;
-            this.printSol.Text = "Print WITH solution";
-            this.printSol.UseVisualStyleBackColor = true;
-            this.printSol.Visible = false;
+            this.timeLbl.AutoSize = true;
+            this.timeLbl.Location = new System.Drawing.Point(326, 44);
+            this.timeLbl.Name = "timeLbl";
+            this.timeLbl.Size = new System.Drawing.Size(0, 13);
+            this.timeLbl.TabIndex = 13;
             // 
             // mazeTimer
             // 
@@ -153,6 +135,43 @@
             this.scoreLbl.Size = new System.Drawing.Size(0, 13);
             this.scoreLbl.TabIndex = 15;
             // 
+            // mazePrint
+            // 
+            this.mazePrint.PrintPage += new System.Drawing.Printing.PrintPageEventHandler(this.mazePrint_PrintPage);
+            // 
+            // mazePreview
+            // 
+            this.mazePreview.AutoScrollMargin = new System.Drawing.Size(0, 0);
+            this.mazePreview.AutoScrollMinSize = new System.Drawing.Size(0, 0);
+            this.mazePreview.ClientSize = new System.Drawing.Size(400, 300);
+            this.mazePreview.Document = this.mazePrint;
+            this.mazePreview.Enabled = true;
+            this.mazePreview.Icon = ((System.Drawing.Icon)(resources.GetObject("mazePreview.Icon")));
+            this.mazePreview.Name = "mazePreview";
+            this.mazePreview.Visible = false;
+            // 
+            // printBtn
+            // 
+            this.printBtn.Location = new System.Drawing.Point(612, 158);
+            this.printBtn.Name = "printBtn";
+            this.printBtn.Size = new System.Drawing.Size(75, 23);
+            this.printBtn.TabIndex = 12;
+            this.printBtn.Text = "Print";
+            this.printBtn.UseVisualStyleBackColor = true;
+            this.printBtn.Visible = false;
+            this.printBtn.Click += new System.EventHandler(this.printBtn_Click);
+            // 
+            // shortestPathBtn
+            // 
+            this.shortestPathBtn.Location = new System.Drawing.Point(612, 117);
+            this.shortestPathBtn.Name = "shortestPathBtn";
+            this.shortestPathBtn.Size = new System.Drawing.Size(75, 35);
+            this.shortestPathBtn.TabIndex = 14;
+            this.shortestPathBtn.Text = "Shortest path";
+            this.shortestPathBtn.UseVisualStyleBackColor = true;
+            this.shortestPathBtn.Visible = false;
+            this.shortestPathBtn.Click += new System.EventHandler(this.shortestPathBtn_Click);
+            // 
             // Student_Maze
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -160,9 +179,9 @@
             this.BackColor = System.Drawing.SystemColors.Control;
             this.ClientSize = new System.Drawing.Size(699, 652);
             this.Controls.Add(this.scoreLbl);
-            this.Controls.Add(this.printSol);
-            this.Controls.Add(this.time);
-            this.Controls.Add(this.printNoSol);
+            this.Controls.Add(this.shortestPathBtn);
+            this.Controls.Add(this.timeLbl);
+            this.Controls.Add(this.printBtn);
             this.Controls.Add(this.stepLbl);
             this.Controls.Add(this.generateBtn);
             this.Controls.Add(this.label2);
@@ -189,11 +208,13 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Button generateBtn;
         private System.Windows.Forms.Label stepLbl;
-        private System.Windows.Forms.Button printNoSol;
-        private System.Windows.Forms.Label time;
-        private System.Windows.Forms.Button printSol;
+        private System.Windows.Forms.Label timeLbl;
         private System.Windows.Forms.Timer mazeTimer;
         private System.Windows.Forms.Label scoreLbl;
+        private System.Drawing.Printing.PrintDocument mazePrint;
+        private System.Windows.Forms.PrintPreviewDialog mazePreview;
+        private System.Windows.Forms.Button printBtn;
+        private System.Windows.Forms.Button shortestPathBtn;
 
     }
 }

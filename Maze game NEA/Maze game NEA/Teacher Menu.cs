@@ -16,7 +16,7 @@ namespace Maze_game_NEA
         {
             InitializeComponent();
         }
-        public void checkOption()
+        private void checkOption()
         {
             //checks what option is selected by the user and opens the corresponding form
             try
@@ -24,7 +24,7 @@ namespace Maze_game_NEA
                 if (optionBox.SelectedItem.ToString() == "Student data")
                 {
                     //student data form is opened
-                    Student_data studentPage = new Student_data();
+                    Student_data studentPage = new Student_data(this);
                     this.Hide();
                     studentPage.ShowDialog();
                     this.Close();
@@ -62,7 +62,7 @@ namespace Maze_game_NEA
             if (loginTable.Rows.Count == 1)
             {
                 //retrieve salt for that user
-                string salt = loginTable.Rows[0][3].ToString();
+                string salt = loginTable.Rows[0][4].ToString();
                 Registration_page reg = new Registration_page();
                 //use SHA1 hash on the password entered by the user combined with the salt
                 string password = reg.SHAhash(passwordTxt.Text + salt);
@@ -95,7 +95,7 @@ namespace Maze_game_NEA
                 passLbl.ForeColor = System.Drawing.Color.Red;
                 passLbl.Text = "Make sure you enter a password";
             }
-        }
+        } 
 
         private void enterBtn_Click(object sender, EventArgs e)
         {

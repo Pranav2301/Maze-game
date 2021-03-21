@@ -38,6 +38,9 @@
             this.passResultLbl = new System.Windows.Forms.Label();
             this.usernameTxt = new System.Windows.Forms.TextBox();
             this.passwordTxt = new System.Windows.Forms.TextBox();
+            this.classTxt = new System.Windows.Forms.TextBox();
+            this.label4 = new System.Windows.Forms.Label();
+            this.classResultLbl = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // label1
@@ -128,11 +131,38 @@
             this.passwordTxt.Size = new System.Drawing.Size(138, 20);
             this.passwordTxt.TabIndex = 13;
             // 
+            // classTxt
+            // 
+            this.classTxt.Location = new System.Drawing.Point(225, 225);
+            this.classTxt.Name = "classTxt";
+            this.classTxt.Size = new System.Drawing.Size(138, 20);
+            this.classTxt.TabIndex = 14;
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(164, 228);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(32, 13);
+            this.label4.TabIndex = 15;
+            this.label4.Text = "Class";
+            // 
+            // classResultLbl
+            // 
+            this.classResultLbl.AutoSize = true;
+            this.classResultLbl.Location = new System.Drawing.Point(125, 317);
+            this.classResultLbl.Name = "classResultLbl";
+            this.classResultLbl.Size = new System.Drawing.Size(0, 13);
+            this.classResultLbl.TabIndex = 16;
+            // 
             // Registration_page
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(618, 411);
+            this.Controls.Add(this.classResultLbl);
+            this.Controls.Add(this.label4);
+            this.Controls.Add(this.classTxt);
             this.Controls.Add(this.passwordTxt);
             this.Controls.Add(this.usernameTxt);
             this.Controls.Add(this.passResultLbl);
@@ -162,5 +192,8 @@
         private System.Windows.Forms.Label passResultLbl;
         private System.Windows.Forms.TextBox usernameTxt;
         private System.Windows.Forms.TextBox passwordTxt;
+        private System.Windows.Forms.TextBox classTxt;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Label classResultLbl;
     }
 }

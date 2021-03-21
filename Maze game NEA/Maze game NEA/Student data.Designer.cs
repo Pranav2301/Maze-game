@@ -31,6 +31,13 @@
             this.homeBtn = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.helpBtn = new System.Windows.Forms.Button();
+            this.mazeData = new System.Windows.Forms.DataGridView();
+            this.nameBox = new System.Windows.Forms.ComboBox();
+            this.difficultyBox = new System.Windows.Forms.ComboBox();
+            this.viewBtn = new System.Windows.Forms.Button();
+            this.label2 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
+            ((System.ComponentModel.ISupportInitialize)(this.mazeData)).BeginInit();
             this.SuspendLayout();
             // 
             // homeBtn
@@ -55,23 +62,90 @@
             // helpBtn
             // 
             this.helpBtn.BackColor = System.Drawing.Color.Red;
-            this.helpBtn.Location = new System.Drawing.Point(529, 5);
+            this.helpBtn.Location = new System.Drawing.Point(620, 5);
             this.helpBtn.Name = "helpBtn";
             this.helpBtn.Size = new System.Drawing.Size(77, 39);
             this.helpBtn.TabIndex = 6;
             this.helpBtn.Text = "Help";
             this.helpBtn.UseVisualStyleBackColor = false;
             // 
+            // mazeData
+            // 
+            this.mazeData.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.mazeData.Location = new System.Drawing.Point(0, 88);
+            this.mazeData.Name = "mazeData";
+            this.mazeData.Size = new System.Drawing.Size(697, 429);
+            this.mazeData.TabIndex = 7;
+            // 
+            // nameBox
+            // 
+            this.nameBox.FormattingEnabled = true;
+            this.nameBox.Items.AddRange(new object[] {
+            "N/A"});
+            this.nameBox.Location = new System.Drawing.Point(161, 61);
+            this.nameBox.Name = "nameBox";
+            this.nameBox.Size = new System.Drawing.Size(121, 21);
+            this.nameBox.TabIndex = 8;
+            // 
+            // difficultyBox
+            // 
+            this.difficultyBox.FormattingEnabled = true;
+            this.difficultyBox.Items.AddRange(new object[] {
+            "N/A",
+            "Easy",
+            "Medium",
+            "Hard"});
+            this.difficultyBox.Location = new System.Drawing.Point(422, 61);
+            this.difficultyBox.Name = "difficultyBox";
+            this.difficultyBox.Size = new System.Drawing.Size(121, 21);
+            this.difficultyBox.TabIndex = 9;
+            // 
+            // viewBtn
+            // 
+            this.viewBtn.Location = new System.Drawing.Point(613, 61);
+            this.viewBtn.Name = "viewBtn";
+            this.viewBtn.Size = new System.Drawing.Size(75, 23);
+            this.viewBtn.TabIndex = 10;
+            this.viewBtn.Text = "View";
+            this.viewBtn.UseVisualStyleBackColor = true;
+            this.viewBtn.Click += new System.EventHandler(this.viewBtn_Click);
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(117, 64);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(38, 13);
+            this.label2.TabIndex = 11;
+            this.label2.Text = "Name:";
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(369, 64);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(47, 13);
+            this.label3.TabIndex = 12;
+            this.label3.Text = "Difficulty";
+            // 
             // Student_data
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(618, 411);
+            this.ClientSize = new System.Drawing.Size(700, 564);
+            this.Controls.Add(this.label3);
+            this.Controls.Add(this.label2);
+            this.Controls.Add(this.viewBtn);
+            this.Controls.Add(this.difficultyBox);
+            this.Controls.Add(this.nameBox);
+            this.Controls.Add(this.mazeData);
             this.Controls.Add(this.helpBtn);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.homeBtn);
             this.Name = "Student_data";
             this.Text = "Student_data";
+            this.Load += new System.EventHandler(this.Student_data_Load);
+            ((System.ComponentModel.ISupportInitialize)(this.mazeData)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -82,5 +156,11 @@
         private System.Windows.Forms.Button homeBtn;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button helpBtn;
+        private System.Windows.Forms.DataGridView mazeData;
+        private System.Windows.Forms.ComboBox nameBox;
+        private System.Windows.Forms.ComboBox difficultyBox;
+        private System.Windows.Forms.Button viewBtn;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label label3;
     }
 }

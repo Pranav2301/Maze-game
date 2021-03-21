@@ -44,6 +44,42 @@ namespace Maze_game_NEA
             return validUser;
         }
 
+        public bool validPass(string pass)
+        {
+            //regular expression for a password that needs to contain a minimum of 8 characters with at least one upper and lower case letter, one digit and one special character
+            var passRegex = new Regex(@"^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$");
+            bool passValid = passRegex.IsMatch(pass);
+            if (passValid == false)
+            {
+                passResultLbl.ForeColor = System.Drawing.Color.Red;
+                passResultLbl.Text = "Make sure your password matches the requirements";
+            }
+            else
+            {
+                passResultLbl.ForeColor = System.Drawing.Color.Green;
+                passResultLbl.Text = "Password is accepted. Press submit if the username is also accepted";
+            }
+            return passValid;
+        }
+
+        public bool validClass(string Class)
+        {
+            //regular expression for a string that needs to contain a number between 1 and 13 followed by a capital letter
+            var classRegex = new Regex(@"^(([1-9]|1[0123])[A-Z])$");
+            bool validClass = classRegex.IsMatch(Class);
+            if (validClass == false)
+            {
+                classResultLbl.ForeColor = System.Drawing.Color.Red;
+                classResultLbl.Text = "Make sure the class you entered matches the requirements";
+            }
+            else
+            {
+                classResultLbl.ForeColor = System.Drawing.Color.Green;
+                classResultLbl.Text = "Class is accepted. Press enter submitted the username and password is accepted";
+            }
+            return validClass;
+        }
+
         public string genSalt()
         {
             //function randomly creates a salt when called
@@ -73,30 +109,12 @@ namespace Maze_game_NEA
             return hash.ToString();
         }
 
-        public bool validPass(string pass)
-        {
-            //regular expression for a password that needs to contain a minimum of 8 characters with at least one upper and lower case letter, one digit and one special character
-            var passRegex = new Regex(@"^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$");
-            bool passValid = passRegex.IsMatch(pass);
-            if (passValid == false)
-            {
-                passResultLbl.ForeColor = System.Drawing.Color.Red;
-                passResultLbl.Text = "Make sure your password matches the requirements";
-            }
-            else
-            {
-                passResultLbl.ForeColor = System.Drawing.Color.Green;
-                passResultLbl.Text = "Password is accepted. Press submit if the username is also accepted";
-            }
-            return passValid;
-        }
-
         public bool checkUserExists()
         {
             //check connection by performing a lookup check in the database
             SqlConnection sqlcon = new SqlConnection(@"Data Source=(LocalDB)\v11.0;AttachDbFilename=C:\Users\Main\Documents\Visual Studio 2012\Projects\Maze game NEA\Maze game NEA\loginTest.mdf;Integrated Security=True;Connect Timeout=30");
             sqlcon.Open();
-            string existQuery = "SELECT COUNT(*) FROM teacherTest WHERE username='" + usernameTxt.Text + "'";
+            string existQuery = "SELECT COUNT(*) FROM Teacher WHERE username='" + usernameTxt.Text + "'";
             SqlCommand sqlcom = new SqlCommand(existQuery, sqlcon);
             int match = (int)sqlcom.ExecuteScalar();
             //check if what the user enters in the textbox returns from the database
@@ -110,27 +128,44 @@ namespace Maze_game_NEA
 
         private void submitBtn_Click(object sender, EventArgs e)
         {
-            if (!validUsername(usernameTxt.Text) | !validPass(passwordTxt.Text))
+            if (!validUsername(usernameTxt.Text) | !validPass(passwordTxt.Text) | !validClass(classTxt.Text))
             {
                 return;
             }
             string teacherUser = usernameTxt.Text;
             string salt = genSalt();
             string teacherPass = SHAhash(passwordTxt.Text + salt);
+            string teacherClass = classTxt.Text;
             //establish connection with database
             SqlConnection sqlcon = new SqlConnection(@"Data Source=(LocalDB)\v11.0;AttachDbFilename=C:\Users\Main\Documents\Visual Studio 2012\Projects\Maze game NEA\Maze game NEA\loginTest.mdf;Integrated Security=True;Connect Timeout=30");
             sqlcon.Open();
-            string query = "insert into teacherTest values(@username,@password,@salt)";
+            string query = "insert into Teacher values(@username,@password,@class,@salt)";
             SqlCommand sqlcom = new SqlCommand(query, sqlcon);
             sqlcom.Parameters.AddWithValue("username", teacherUser);
             sqlcom.Parameters.AddWithValue("password", teacherPass);
+            sqlcom.Parameters.AddWithValue("class", teacherClass);
             sqlcom.Parameters.AddWithValue("salt", salt);
             sqlcom.ExecuteNonQuery();
+            string getIDQuery = "SELECT * FROM Teacher WHERE class='" + teacherClass + "'";//Get record where class matches the class entered by the student
+            SqlDataAdapter sqlda = new SqlDataAdapter(getIDQuery, sqlcon);
+            DataTable teacherTable = new DataTable();
+            sqlda.Fill(teacherTable);
+            //checks if there is a record in the teacherTable that matches the class entered by the student
+            if (teacherTable.Rows.Count == 1)
+            {
+                int teacherID = (int)teacherTable.Rows[0][0];//get primary key from Teacher table
+                string updateQuery = "UPDATE Student SET teacherID = @teacherID WHERE Class='" + teacherClass + "'";
+                sqlcom = new SqlCommand(updateQuery, sqlcon);
+                sqlcom.Parameters.AddWithValue("teacherID", teacherID);//add foreign key to the Student table
+                sqlcom.ExecuteNonQuery();
+            }
             //user is taken back to the teacherMenu form after registration is successful
             Teacher_Menu menuForm = new Teacher_Menu();
             this.Hide();
             menuForm.ShowDialog();
             this.Close();
         }
-    }
+    } 
 }
+
+
