@@ -52,7 +52,7 @@ namespace Maze_game_NEA
         {
             //establish connection with database
             string username = usernameTxt.Text;
-            SqlConnection sqlcon = new SqlConnection(@"Data Source=(LocalDB)\v11.0;AttachDbFilename=C:\Users\Main\Documents\Visual Studio 2012\Projects\Maze game NEA\Maze game NEA\loginTest.mdf;Integrated Security=True;Connect Timeout=30");
+            SqlConnection sqlcon = new SqlConnection(@"Data Source=(LocalDB)\v11.0;AttachDbFilename=C:\Users\Main\Documents\Visual Studio 2012\Projects\Maze game NEA\Maze game NEA\mazeDtb.mdf;Integrated Security=True;Connect Timeout=30");
             string loginQuery = "SELECT * FROM Teacher WHERE username='" + username + "'";
             SqlDataAdapter sqlda = new SqlDataAdapter(loginQuery, sqlcon);
             //all the data from the table is selected and it tries to find username and password entered by the user

@@ -263,6 +263,7 @@ namespace Maze_game_NEA
 
         public void checkWalls(int x, int y)
         {
+            validCells = new ArrayList();
             //checks if the top wall isn’t present
             if (!maze.getMazeCell(x, y).walls[0])
             {
@@ -416,6 +417,7 @@ namespace Maze_game_NEA
                 }
         }
 
+
         private void Student_Maze_MouseDown(object sender, MouseEventArgs e)
         {
             try
@@ -466,7 +468,7 @@ namespace Maze_game_NEA
                                 }
                                 scoreLbl.Text = "Score: " + score.ToString();
                                 //establish connection with database
-                                SqlConnection sqlcon = new SqlConnection(@"Data Source=(LocalDB)\v11.0;AttachDbFilename=C:\Users\Main\Documents\Visual Studio 2012\Projects\Maze game NEA\Maze game NEA\loginTest.mdf;Integrated Security=True;Connect Timeout=30");
+                                SqlConnection sqlcon = new SqlConnection(@"Data Source=(LocalDB)\v11.0;AttachDbFilename=C:\Users\Main\Documents\Visual Studio 2012\Projects\Maze game NEA\Maze game NEA\mazeDtb.mdf;Integrated Security=True;Connect Timeout=30");
                                 sqlcon.Open();
                                 string query = "insert into Maze values(@Difficulty,@Rows,@Columns,@Score,@Date,@studentID)";
                                 string getIDQuery = "SELECT * FROM Student WHERE FirstName='" + studentMenu.firstNameTxt.Text + "' AND Class='" + studentMenu.classTxt.Text + "'";

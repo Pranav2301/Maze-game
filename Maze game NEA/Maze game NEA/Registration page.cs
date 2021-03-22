@@ -112,7 +112,7 @@ namespace Maze_game_NEA
         public bool checkUserExists()
         {
             //check connection by performing a lookup check in the database
-            SqlConnection sqlcon = new SqlConnection(@"Data Source=(LocalDB)\v11.0;AttachDbFilename=C:\Users\Main\Documents\Visual Studio 2012\Projects\Maze game NEA\Maze game NEA\loginTest.mdf;Integrated Security=True;Connect Timeout=30");
+            SqlConnection sqlcon = new SqlConnection(@"Data Source=(LocalDB)\v11.0;AttachDbFilename=C:\Users\Main\Documents\Visual Studio 2012\Projects\Maze game NEA\Maze game NEA\mazeDtb.mdf;Integrated Security=True;Connect Timeout=30");
             sqlcon.Open();
             string existQuery = "SELECT COUNT(*) FROM Teacher WHERE username='" + usernameTxt.Text + "'";
             SqlCommand sqlcom = new SqlCommand(existQuery, sqlcon);
@@ -137,7 +137,7 @@ namespace Maze_game_NEA
             string teacherPass = SHAhash(passwordTxt.Text + salt);
             string teacherClass = classTxt.Text;
             //establish connection with database
-            SqlConnection sqlcon = new SqlConnection(@"Data Source=(LocalDB)\v11.0;AttachDbFilename=C:\Users\Main\Documents\Visual Studio 2012\Projects\Maze game NEA\Maze game NEA\loginTest.mdf;Integrated Security=True;Connect Timeout=30");
+            SqlConnection sqlcon = new SqlConnection(@"Data Source=(LocalDB)\v11.0;AttachDbFilename=C:\Users\Main\Documents\Visual Studio 2012\Projects\Maze game NEA\Maze game NEA\mazeDtb.mdf;Integrated Security=True;Connect Timeout=30");
             sqlcon.Open();
             string query = "insert into Teacher values(@username,@password,@class,@salt)";
             SqlCommand sqlcom = new SqlCommand(query, sqlcon);

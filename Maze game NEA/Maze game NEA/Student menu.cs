@@ -38,7 +38,7 @@ namespace Maze_game_NEA
        public bool checkStudentExists()
        {
            //check connection by performing a lookup check in the database
-           SqlConnection sqlcon = new SqlConnection(@"Data Source=(LocalDB)\v11.0;AttachDbFilename=C:\Users\Main\Documents\Visual Studio 2012\Projects\Maze game NEA\Maze game NEA\loginTest.mdf;Integrated Security=True;Connect Timeout=30");
+           SqlConnection sqlcon = new SqlConnection(@"Data Source=(LocalDB)\v11.0;AttachDbFilename=C:\Users\Main\Documents\Visual Studio 2012\Projects\Maze game NEA\Maze game NEA\mazeDtb.mdf;Integrated Security=True;Connect Timeout=30");
            sqlcon.Open();
            string existQuery = "SELECT COUNT(*) FROM Student WHERE FirstName='" + firstNameTxt.Text + "' AND Surname ='" + surnameTxt.Text + "'";
            SqlCommand sqlcom = new SqlCommand(existQuery, sqlcon);
@@ -88,7 +88,7 @@ namespace Maze_game_NEA
            string surname = surnameTxt.Text;
            string studentClass = classTxt.Text;
            SqlCommand sqlcom; 
-           SqlConnection sqlcon = new SqlConnection(@"Data Source=(LocalDB)\v11.0;AttachDbFilename=C:\Users\Main\Documents\Visual Studio 2012\Projects\Maze game NEA\Maze game NEA\loginTest.mdf;Integrated Security=True;Connect Timeout=30");
+           SqlConnection sqlcon = new SqlConnection(@"Data Source=(LocalDB)\v11.0;AttachDbFilename=C:\Users\Main\Documents\Visual Studio 2012\Projects\Maze game NEA\Maze game NEA\mazeDtb.mdf;Integrated Security=True;Connect Timeout=30");
            sqlcon.Open();
            if (!checkStudentExists())
            {
