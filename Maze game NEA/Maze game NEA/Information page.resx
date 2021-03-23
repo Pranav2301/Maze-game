@@ -117,4 +117,18 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="richTextBox2.Text" xml:space="preserve">
+    <value>In the student menu, students can login to the maze form by entering their first name, surname and class. The name fields shouldn't contain numbers and should only contain alphabetic characters. The class field should have a number between 1 and 13 followed by an upper case letter. </value>
+  </data>
+  <data name="richTextBox3.Text" xml:space="preserve">
+    <value>The student has to select a difficulty from the drop down menu and press the generate button after this. Once the maze is generated, the student should start navigating the maze from the start point, highlighted in red, at the bottom left of the maze. A successful move will turn the cell yellow, otherwise the move is considered to be invalid. A message box is displayed to the user once the maze is completed.
+
+Teachers will also use this form to print out a maze. In order to print out a maze without the shortest path, a difficulty should be selected for the maze and the generate button should be pressed. Once the maze is generated, the print button should be pressed. To print a maze with the shortest path, the shortest path button should be pressed after the maze is generated and then the print button should be pressed.  </value>
+  </data>
+  <data name="richTextBox4.Text" xml:space="preserve">
+    <value>The teacher can register by selecting the sign up link label at the bottom of the Teacher Menu. The teacher has to enter their name as the username so it shouldn't contain numbers. The username should only contain alphabetic characters. The password should have at least one upper case letter, one lower case letter, one number and one special character. The password should also be at least 8 characters. The class field should have a number between 1 and 13 followed by an upper case letter.</value>
+  </data>
+  <data name="richTextBox5.Text" xml:space="preserve">
+    <value>The teacher should select values in the name and difficulty filters. The name filter will contain all the students that have completed a maze in a teacher's class. The difficulty filter can be used to extract data on the performance on a certain difficulty. If a filter doesn't want to be used, N/A should be selected.  </value>
+  </data>
 </root>

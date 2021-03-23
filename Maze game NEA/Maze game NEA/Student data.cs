@@ -118,6 +118,22 @@ namespace Maze_game_NEA
                 MessageBox.Show("Select a value in both filters");
             }
         }
+
+        private void homeBtn_Click(object sender, EventArgs e)
+        {
+            MainMenu menu = new MainMenu();//open main menu
+            this.Hide();
+            menu.ShowDialog();
+            this.Close();
+        }
+
+        private void helpBtn_Click(object sender, EventArgs e)
+        {
+            Information_page help = new Information_page();//open information page
+            this.Hide();
+            help.ShowDialog();
+            this.Close();
+        }
     }
 }
 

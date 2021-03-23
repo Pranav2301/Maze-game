@@ -54,6 +54,7 @@
             this.homeBtn.Size = new System.Drawing.Size(48, 48);
             this.homeBtn.TabIndex = 4;
             this.homeBtn.UseVisualStyleBackColor = true;
+            this.homeBtn.Click += new System.EventHandler(this.homeBtn_Click);
             // 
             // helpBtn
             // 
@@ -64,6 +65,7 @@
             this.helpBtn.TabIndex = 6;
             this.helpBtn.Text = "Help";
             this.helpBtn.UseVisualStyleBackColor = false;
+            this.helpBtn.Click += new System.EventHandler(this.helpBtn_Click);
             // 
             // label1
             // 

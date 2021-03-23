@@ -31,5 +31,13 @@ namespace Maze_game_NEA
             student.ShowDialog();
             this.Close();
         }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            Information_page help = new Information_page();//open information page
+            this.Hide();
+            help.ShowDialog();
+            this.Close();
+        }
     }
 }

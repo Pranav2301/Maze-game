@@ -15,5 +15,13 @@ namespace Maze_game_NEA
         {
             InitializeComponent();
         }
+
+        private void homeBtn_Click(object sender, EventArgs e)
+        {
+            MainMenu menu = new MainMenu();//open main menu
+            this.Hide();
+            menu.ShowDialog();
+            this.Close();
+        }
     }
 }
